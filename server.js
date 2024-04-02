@@ -3,6 +3,9 @@ const http = require('http');
 const url = require('url');
 const replaceTemplate = require('./modules/replaceTemplate');
 const slugify = require('slugify');
+const dotenv = require('dotenv');
+
+dotenv.config({ path: './config.env' });
 
 //////////////////////////////////////////////////
 // Building Simple API
@@ -59,6 +62,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(8000, '127.0.0.1', () => {
+const port = process.env.PORT || 3000;
+server.listen(port, '127.0.0.1', () => {
   console.log('Listening to the request on port 8000');
 });
