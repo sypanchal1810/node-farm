@@ -4,7 +4,8 @@
   "description": "Learning node.js",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "saurabh",
   "license": "ISC",
