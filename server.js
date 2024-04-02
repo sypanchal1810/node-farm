@@ -1,18 +1,51 @@
+const dotenv = require('dotenv');
 const fs = require('fs');
 const http = require('http');
-const url = require('url');
-const replaceTemplate = require('./modules/replaceTemplate');
+const https = require('https');
+const path = require('path');
 const slugify = require('slugify');
-const dotenv = require('dotenv');
+const url = require('url');
+
+const replaceTemplate = require('./modules/replaceTemplate');
 
 dotenv.config({ path: './config.env' });
+
+const publicPath = path.join(__dirname, 'templates');
+
+const getFileData = (fileName) => {
+  return path.join(publicPath, fileName);
+};
 
 //////////////////////////////////////////////////
 // Building Simple API
 
-const tempCard = fs.readFileSync(`${__dirname}/templates/template-card.html`, 'utf-8');
-const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'utf-8');
-const tempProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`, 'utf-8');
+const tempCard = fs.readFileSync(getFileData('template-card.html'), 'utf-8');
+const tempOverview = fs.readFileSync(getFileData('template-overview.html'), 'utf-8');
+const tempProduct = fs.readFileSync(getFileData('template-product.html'), 'utf-8');
+
+// const fileUrl = new URL('file://github.com/sypanchal1810/node-farm/blob/master/templates/template-card.html');
+
+// const tempCardurl = fs.readFileSync(fileUrl, 'utf-8');
+
+// const giturl = 'https://raw.githubusercontent.com/sypanchal1810/node-farm/master/templates/template-card.html';
+
+// https
+//   .get(giturl, (res) => {
+//     let data = '';
+
+//     res.on('data', (chunk) => {
+//       data += chunk;
+//     });
+
+//     res.on('end', () => {
+//       console.log(data);
+//     });
+//   })
+//   .on('error', (err) => {
+//     console.log('Error: ', err.message);
+//   });
+
+// console.log(tempCardurl);
 
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
 const dataObj = JSON.parse(data);
@@ -26,7 +59,6 @@ dataObj.map(
 );
 
 const server = http.createServer((req, res) => {
-  console.log(url.parse(req.url, true));
   const { query, pathname } = url.parse(req.url, true);
 
   // Overview Page

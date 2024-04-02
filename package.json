@@ -11,7 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "slugify": "^1.6.5"
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "path": "^0.12.7",
+    "slugify": "^1.6.5",
+    "url": "^0.11.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
